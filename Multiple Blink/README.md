@@ -1,25 +1,18 @@
-# Multiple Blink
-Now that we have blinked at least 1 LED, what about blinking multiple LEDS at the same time? The minimum that you need to develop is blinking at least two LEDs at two different rates. Although I am not going to give you a speed, you should probably pick a rate which is visible to a standard human. I really hope that you take this further and perform some of the extra work for this part of the lab exercise.
+MSP430 Microprocessors (5 boards):
+------------------------------------------
+MSP430F5529
+MSP430FR2311
+MSP430FR5994
+MSP430FR6989
+MSP430G2553
+------------------------------------------
 
+Multiple LED Blink
 
-# YOU NEED TO CREATE THE FOLLOWING FOLDERS
-* MSP430G2553
-* MSP430F5529
-* MSP430FR2311
-* MSP430FR5994
-* MSP430FR6989
+------------------------------------------
 
-## README
-Remember to replace this README with your README once you are ready to submit. I would recommend either making a copy of this file or taking a screen shot. There might be a copy of all of these README's in a folder on the top level depending on the exercise.
+The code begins with turning off the on-board watchdog timer control. The next line sets the red LED and green LED (pin names are different for most boards) to be outputs and to produce Vcc for illuminating them. The LED pins themselves are designated as BIT values (i.e. P1OUT = BIT0 for LED with pin name P1.0). If the LEDs have the same P pin value (i.e. P1.0 and P1.1), then they are placed in the same line separated by a + sign (i.e. P1DIR = BIT0 + BIT1). If not, then they are separated into two different lines (i.e. P1DIR = BIT0; P2DIR = BIT0). An infinite while-loop toggles on and off the dual LED illumination with a delay specified as 50000 cycles, or 0.045 second delays. The operation ^= controls the toggling (i.e. P1OUT ^= BIT0).
 
-## Extra Work
-When you take a look at the development boards, you are limited to what is built into the platform.
+This code is almost identical for every board, with the exception found in three of them. The MSP430FR boards require one extra line to implement the same code for blinking the LEDs, which disables the GPIO power-on default high-impedance mode for activating the configured In/Out port settings (PM5CTL0 &= ~LOCKLPM5).
 
-### Even More LEDs
-Since up to this point you should have hopefully noticed that you are simply just controlling each pin on your processor. So... what is keeping you from putting an LED on each pin? Can you actually control the speed of each of these LEDs?
-
-### Patterned Lights
-If you can control a ton of LEDs, what is keeping you from having a little fun? Why not try and make something like a moving face or other moving object in lights. *CAUTION* I would only do this if you have finished the rest of the lab.
-
-### UART Pattern Control
-If you have been using UART, could you set which LEDs are on or off based off some UART command? Would you want to send an Array over UART such as [1 0 1 0] or would you want to send a byte that corresponds to the status? Can you not only say which LEDs are on, but also tell them to blink at a particular rate if they were on (so LED1 Blink every 100ms)?
+------------------------------------------

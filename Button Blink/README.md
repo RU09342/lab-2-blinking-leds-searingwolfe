@@ -1,21 +1,18 @@
-# Button Blink
-Now that you have looked at blinking the LED from some built in delay, but what if we wanted to control the state of the LED by a button? You may think "Why would I need a Microcontroller to perform the job of a switch?". And that is where you come in. The bare minimum for this part of the lab is to essentially replicate a switch with your development board.
+MSP430 Microprocessors (5 boards):
+------------------------------------------
+MSP430F5529
+MSP430FR2311
+MSP430FR5994
+MSP430FR6989
+MSP430G2553
+------------------------------------------
 
-# YOU NEED TO CREATE THE FOLLOWING FOLDERS
-* MSP430G2553
-* MSP430F5529
-* MSP430FR2311
-* MSP430FR5994
-* MSP430FR6989
+Button LED Blink
 
-## README
-Remember to replace this README with your README once you are ready to submit. I would recommend either making a copy of this file or taking a screen shot. There might be a copy of all of these README's in a folder on the top level depending on the exercise.
+------------------------------------------
 
-## Extra Work
-What can we do to make this a little bit more worthy of needing a microcontroller.
+The code begins with turning off the on-board watchdog timer control. The next line sets the red LED (pin name is different for most boards) to be an output and to produce Vcc for illuminating it. The LED pin itself is designated as a BIT value (i.e. P1OUT = BIT0 for LED with pin name P1.0), along with the push-button pin name. The input pin for a push-button is given a pullup/pulldown resistor for clamping the on-off signals (i.e. P1REN = BIT3). Then this same internal resistor is defined on a new line to connect to Vcc, making it a pullup resistor (i.e. P1OUT = BIT3). An infinite while-loop toggles on and off the LED illumination with a delay specified as 50000 cycles, or 0.045 second delays. The operation ^= controls the toggling (i.e. P1OUT ^= BIT0). However, these operations are found within an if-statement within the while-loop. The if-statement waits for the button-pressed condition to occur before performing any LED toggling (i.e. if((P1IN & BIT3) != BIT3).
 
-### Button Based Speed Control
-Much like the UART controlled speed, what if you could cycle between speeds based on a button press? The speed could progress through a cycle of "Off-Slow-Medium-Fast" looping back when you hit the end.
+This code is almost identical for every board, with the exception found in three of them. The MSP430FR boards require one extra line to implement the same code for blinking an LED with a button-press, which disables the GPIO power-on default high-impedance mode for activating the configured In/Out port settings (PM5CTL0 &= ~LOCKLPM5).
 
-### Color Change
-What if upon a button press, the LED which was blinking changed. Some of the development boards contain two LEDs, so you could swap between a Red and a Green LED.
+------------------------------------------

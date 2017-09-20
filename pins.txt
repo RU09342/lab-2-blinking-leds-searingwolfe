@@ -1,0 +1,8 @@
+MSP430		Functions (P 1.3) = port 1 (direction)
+------		-----------------
+
+G2553		ADC10_CLK/A3/Vref-/Veref-/CA3/CAOUT/IO/S2
+F5529		I/O/TAOCCR2_Capture/CC12AInput/Compare/Out2output
+FR2311		UCBOSOMI/UCBOSCL/OA0O/A3/IO
+FR5994		TAI.2/UCB0STE/A3/C3/IO
+FR6989		TAI.2/ESITEST4/A3/C3/IO
